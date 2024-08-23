@@ -4,15 +4,46 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const BudgetRegisterPage = () => {
   const [category, setCategory] = useState("수입");
+  const [date, setDate] = useState("");
+  const [classification, setClassification] = useState("");
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
   const handleClickIn = () => {
     setCategory("수입");
+    setDate("");
+    setClassification("");
+    setAmount("");
+    setDescription("");
   };
 
   const handleClickOut = () => {
     setCategory("지출");
+    setDate("");
+    setClassification("");
+    setAmount("");
+    setDescription("");
+  };
+
+  const handleSaveIn = () => {
+    console.log("저장");
+    console.log("날짜:", date);
+    console.log("분류:", classification);
+    console.log("금액:", amount);
+    console.log("내용:", description);
+  };
+
+  const handleSaveOut = () => {
+    console.log("날짜:", date);
+    console.log("분류:", classification);
+    console.log("금액:", amount);
+    console.log("내용:", description);
+  };
+
+  const handleCancle = () => {
+    navigate(-1);
   };
 
   return (
@@ -35,7 +66,106 @@ const BudgetRegisterPage = () => {
           </CategoryContainer>
         </Category>
       </Header>
-      <Form>dkkdkd</Form>
+      {category === "수입" && (
+        <Form>
+          <Section>
+            <InputSection>
+              <Label>날짜</Label>
+              <Input
+                type="text"
+                placeholder="2024-05-06"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </InputSection>
+            <InputSection>
+              <Label>분류</Label>
+              <Input
+                type="text"
+                placeholder="카테고리를 입력해주세요"
+                value={classification}
+                onChange={(e) => setClassification(e.target.value)}
+              />
+            </InputSection>
+          </Section>
+          <Section>
+            <InputSection>
+              <Label>금액</Label>
+              <Input
+                type="text"
+                placeholder="금액을 입력해주세요"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </InputSection>
+            <InputSection>
+              <Label>내용</Label>
+              <Input
+                type="text"
+                placeholder="내용을 입력해주세요"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </InputSection>
+          </Section>
+          <ButtonContainer>
+            <SaveButton onClick={handleSaveIn}>저장</SaveButton>
+            <CancleButton onClick={handleCancle}>취소</CancleButton>
+          </ButtonContainer>
+        </Form>
+      )}
+      {category === "지출" && (
+        <Form>
+          <Section>
+            <InputSection>
+              <Label>날짜</Label>
+              <Input
+                type="text"
+                placeholder="2024-05-06"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+            </InputSection>
+            <InputSection>
+              <Label>분류</Label>
+              <Input
+                type="text"
+                placeholder="카테고리를 입력해주세요"
+                value={classification}
+                onChange={(e) => setClassification(e.target.value)}
+              />
+            </InputSection>
+          </Section>
+          <Section>
+            <InputSection>
+              <Label>금액</Label>
+              <Input
+                type="text"
+                placeholder="금액을 입력해주세요"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </InputSection>
+            <InputSection>
+              <Label>내용</Label>
+              <Input
+                type="text"
+                placeholder="내용을 입력해주세요"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </InputSection>
+          </Section>
+          <InputSection>
+            <Label>첨부파일</Label>
+            <ImageInput type="file" />
+          </InputSection>
+          <ButtonContainer>
+            <SaveButton onClick={handleSaveOut}>저장</SaveButton>
+            <CancleButton onClick={handleCancle}>취소</CancleButton>
+          </ButtonContainer>
+        </Form>
+      )}
     </Container>
   );
 };
@@ -89,6 +219,71 @@ const CategoryName = styled.span`
 const Form = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   background-color: #ffffff;
   border-radius: 20px;
+  padding: 50px 80px 80px;
+  gap: 75px;
+  align-items: flex-end;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+const SaveButton = styled.button`
+  width: 140px;
+  height: 50px;
+  font-size: 18px;
+  color: white;
+  background-color: #344bfd;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+`;
+
+const CancleButton = styled.button`
+  width: 140px;
+  height: 50px;
+  font-size: 18px;
+  color: #767676;
+  background-color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid #767676;
+`;
+
+const Section = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+const InputSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+`;
+
+const Label = styled.label`
+  font-size: 22px;
+  font-weight: 500;
+`;
+
+const Input = styled.input`
+  padding: 30px;
+  border: 1px solid #dadada;
+  border-radius: 20px;
+  outline: none;
+  font-size: 20px;
+
+  &:focus {
+    border: 1px solid #344bfd;
+  }
+`;
+
+const ImageInput = styled.input`
+  width: 50%;
 `;
