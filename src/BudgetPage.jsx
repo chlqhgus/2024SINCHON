@@ -1,82 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import History from "./History";
 import { useNavigate, useParams } from "react-router-dom";
-
-const totalBudget = 20000; // 총 예산
-const data = [
-  {
-    listid: 1,
-    list: "간식",
-    money: 4000,
-    category: "간식비",
-    expense: true,
-    receipt: null,
-    eventid: 1,
-    date: "2024-08-23",
-  },
-  {
-    listid: 2,
-    list: "지원금",
-    money: 5000,
-    category: "지원금",
-    expense: false,
-    receipt: null,
-    eventid: 1,
-    date: "2024-08-24",
-  },
-];
-
-const historyData = [
-  {
-    listid: 1,
-    date: "2024-08-25",
-    detail: "동아리 홍보 포스터 제작",
-    imageUrl: "/bg.png",
-    expense: true,
-    money: 140000,
-    remainMoney: 1243800,
-  },
-  {
-    listid: 2,
-    date: "2024-08-20",
-    detail: "정기모임 간식비",
-    imageUrl: "/bg.png",
-    expense: true,
-    money: 42300,
-    remainMoney: 1383800,
-  },
-  {
-    listid: 3,
-    date: "2024-04-03",
-    detail: "동아리 입회비",
-    imageUrl: "/bg.png",
-    expense: false,
-    money: 500000,
-    remainMoney: 1426100,
-  },
-  {
-    listid: 4,
-    date: "2024-04-03",
-    detail: "동아리 입회비",
-    imageUrl: "/bg.png",
-    expense: false,
-    money: 500000,
-    remainMoney: 1426100,
-  },
-  {
-    listid: 5,
-    date: "2024-04-03",
-    detail: "동아리 입회비",
-    imageUrl: "/bg.png",
-    expense: false,
-    money: 500000,
-    remainMoney: 1426100,
-  },
-];
+import { instance } from "./api/instance";
 
 const BudgetPage = () => {
   const [category, setCategory] = useState("전체");
+  const [history, setHistory] = useState([]);
+  const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -92,26 +23,34 @@ const BudgetPage = () => {
     setCategory("지출");
   };
 
-  const calculateRemainingBudget = (total, data) => {
-    let remainingBudget = total;
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let url = "fundi/moneylist/1";
 
-    data.forEach((item) => {
-      if (item.expense) {
-        remainingBudget -= item.money;
-      } else {
-        remainingBudget += item.money;
+        if (category === "수입") {
+          url += "?expense=False";
+        } else if (category === "지출") {
+          url += "?expense=True";
+        }
+
+        const response = await instance.get(url, {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDc3MjM3LCJpYXQiOjE3MjQ0NDEyMzcsImp0aSI6IjFlMGE1ZDU0MDFmZTRhYjM5YjVjNmVjNWZlMGIzN2RlIiwidXNlcl9pZCI6Mn0.9DGUzOXOzK786J1-qk4UaET4-0-V-TosOaPu3FRv8Zw",
+          },
+        });
+        if (response.status === 200) {
+          setTotal(response.data.total);
+          setHistory(response.data.data);
+        }
+      } catch (error) {
+        alert(error);
       }
-    });
+    };
 
-    return remainingBudget;
-  };
-
-  const formatCurrency = (amount) => {
-    return amount.toLocaleString();
-  };
-
-  const remainingBudget = calculateRemainingBudget(totalBudget, data);
-  const formattedBudget = formatCurrency(remainingBudget);
+    fetchData();
+  }, [category]);
 
   return (
     <Container>
@@ -150,17 +89,17 @@ const BudgetPage = () => {
       <Content>
         <Total>
           <TotalText>남은 예산</TotalText>
-          <TotalNum>{formattedBudget} 원</TotalNum>
+          <TotalNum>{total.toLocaleString()} 원</TotalNum>
         </Total>
-        {historyData.map((element) => (
+        {history.map((element) => (
           <History
             key={element.listid}
             date={element.date}
             detail={element.detail}
-            imageUrl={element.imageUrl}
+            imageUrl={element.imageUrl ? element.imageUrl : "/image.png"}
             expense={element.expense}
-            money={element.money.toLocaleString()}
-            remainMoney={element.remainMoney.toLocaleString()}
+            money={element.money}
+            remainMoney={element.total}
           />
         ))}
       </Content>
