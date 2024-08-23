@@ -4,7 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const HomePage = () => {
+const DashboardPage = () => {
   const data = {
     labels: ["활동지원금", "홍보비", "간식비"],
     datasets: [
@@ -372,4 +372,4 @@ const LegendPercentage = styled.span`
   color: #404040;
 `;
 
-export default HomePage;
+export default DashboardPage;

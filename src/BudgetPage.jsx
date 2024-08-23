@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import History from "./History";
+import { useNavigate, useParams } from "react-router-dom";
 
 const totalBudget = 20000; // 총 예산
 const data = [
@@ -76,6 +77,8 @@ const historyData = [
 
 const BudgetPage = () => {
   const [category, setCategory] = useState("전체");
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleClickTotal = () => {
     setCategory("전체");
@@ -136,7 +139,13 @@ const BudgetPage = () => {
             <CategoryName $isActive={category === "지출"}>지출</CategoryName>
           </CategoryContainer>
         </Category>
-        <Plus>+ 추가하기</Plus>
+        <Plus
+          onClick={() => {
+            navigate(`/budgetRegister/${id}`);
+          }}
+        >
+          + 추가하기
+        </Plus>
       </Header>
       <Content>
         <Total>
@@ -145,6 +154,7 @@ const BudgetPage = () => {
         </Total>
         {historyData.map((element) => (
           <History
+            key={element.listid}
             date={element.date}
             detail={element.detail}
             imageUrl={element.imageUrl}
