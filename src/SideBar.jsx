@@ -4,10 +4,9 @@ import styled from "styled-components";
 import Event from "./Event";
 
 const mockData = [
-  { id: 1, name: "행사1" },
-  { id: 2, name: "행사2" },
-  { id: 3, name: "행사3" },
-  { id: 4, name: "행사4" },
+  { id: 1, name: "+ 새 행사 추가하기" },
+  { id: 2, name: "12기 아기사자" },
+  { id: 3, name: "2024 신촌해커톤" },
 ];
 
 const SideBar = () => {

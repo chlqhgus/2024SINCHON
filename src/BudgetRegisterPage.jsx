@@ -211,14 +211,19 @@ const Container = styled.div`
 `;
 
 const HeaderText = styled.span`
-  font-size: 40px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 30px;
+  font-style: normal;
   font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.8px;
 `;
 
 const Header = styled.div`
   display: flex;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 5px;
 `;
 
 const Category = styled.div`
@@ -239,7 +244,12 @@ const CategoryContainer = styled.div`
 `;
 
 const CategoryName = styled.span`
+  font-family: Pretendard;
   font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
   color: ${(props) => (props.$isActive ? "#ffffff" : "#000000")};
 `;
 
@@ -249,42 +259,59 @@ const Form = styled.div`
   flex-direction: column;
   background-color: #ffffff;
   border-radius: 20px;
-  padding: 50px 80px 80px;
-  gap: 75px;
+  padding: 50px 50px 80px;
+  gap: 40px;
   align-items: flex-end;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   gap: 15px;
+  padding: 0px 30px;
 `;
 const SaveButton = styled.button`
-  width: 140px;
-  height: 50px;
+  width: 120px;
+  height: 49px;
   font-size: 18px;
   color: white;
   background-color: #344bfd;
   border-radius: 10px;
   cursor: pointer;
   border: none;
+
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.18px;
 `;
 
 const CancleButton = styled.button`
-  width: 140px;
-  height: 50px;
+  width: 120px;
+  height: 49px;
+  flex-shrink: 0;
   font-size: 18px;
   color: #767676;
   background-color: #ffffff;
   border-radius: 10px;
   cursor: pointer;
   border: 1px solid #767676;
+  color: #767676;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.18px;
 `;
 
 const Section = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
-  gap: 20px;
+  gap: 40px;
 `;
 
 const InputSection = styled.div`
@@ -295,8 +322,12 @@ const InputSection = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 22px;
-  font-weight: 500;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 `;
 
 const Input = styled.input`
@@ -305,6 +336,12 @@ const Input = styled.input`
   border-radius: 20px;
   outline: none;
   font-size: 20px;
+  width: 420px;
+  height: 60px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid #dadada;
+  background: #fff;
 
   &:focus {
     border: 1px solid #344bfd;

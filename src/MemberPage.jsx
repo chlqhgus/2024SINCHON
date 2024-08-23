@@ -27,8 +27,8 @@ const MemberPage = () => {
       <Content>
         <Title>부원 등록</Title>
         <Description>
-          행사에 참여하는 부원의 개인 정보를 등록하여, <br />
-          각 부원의 참가비 및 회비 납부 상태를 확인하실 수 있습니다.
+          행사에 참여하는 부원의 개인 정보를 등록하여, <br />각 부원의 참가비 및
+          회비 납부 상태를 확인하실 수 있습니다.
         </Description>
 
         {/* 부원 등록 폼 */}
@@ -44,16 +44,10 @@ const MemberPage = () => {
           <PaymentContainer>
             <Label>회비 납부 여부</Label>
             <OXContainer>
-              <OXButton
-                selected={isPaid}
-                onClick={() => setIsPaid(true)}
-              >
+              <OXButton selected={isPaid} onClick={() => setIsPaid(true)}>
                 O
               </OXButton>
-              <OXButton
-                selected={!isPaid}
-                onClick={() => setIsPaid(false)}
-              >
+              <OXButton selected={!isPaid} onClick={() => setIsPaid(false)}>
                 <span>X</span>
               </OXButton>
             </OXContainer>
@@ -64,17 +58,22 @@ const MemberPage = () => {
         {/* 부원 목록 */}
         <MemberListContainer>
           <HeaderContainer>
-          <MemberListTitle>부원 명단</MemberListTitle>
-          <SearchContainer>
-            <SearchInput type="text" placeholder="확인하고 싶은 부원 이름을 검색하세요" />
-            <SearchIcon src="/search.svg" alt="search icon" />
-          </SearchContainer>
+            <MemberListTitle>부원 명단</MemberListTitle>
+            <SearchContainer>
+              <SearchInput
+                type="text"
+                placeholder="확인하고 싶은 부원 이름을 검색하세요"
+              />
+              <SearchIcon src="/search.svg" alt="search icon" />
+            </SearchContainer>
           </HeaderContainer>
           <MemberList>
             {members.map((member, index) => (
               <MemberItem key={index}>
                 <MemberName>{member.name}</MemberName>
-                <MemberStatus paid={member.paid}>{member.paid ? "납부완료" : "미납"}</MemberStatus>
+                <MemberStatus paid={member.paid}>
+                  {member.paid ? "납부완료" : "미납"}
+                </MemberStatus>
               </MemberItem>
             ))}
           </MemberList>
@@ -91,6 +90,7 @@ const Container = styled.div`
   display: flex;
   height: 100vh;
   background-color: #f9f9f9;
+  padding-left: 10px;
 `;
 
 // 콘텐츠 영역 레이아웃
@@ -101,22 +101,34 @@ const Content = styled.div`
 
 // 페이지 제목 스타일
 const Title = styled.h1`
-  font-size: 32px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 30px;
+  font-style: normal;
   font-weight: 700;
-  color: #333;
-  margin-bottom: 16px;
+  line-height: normal;
+  letter-spacing: -0.8px;
+  padding-top: 57px;
 `;
 
 // 페이지 설명 텍스트 스타일
 const Description = styled.p`
+  padding-top: 20px;
   font-family: Pretendard;
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  color: #A7A7A7;
+  color: #a7a7a7;
   line-height: 20px; /* 133.333% */
   letter-spacing: -0.3px;
   margin-bottom: 40px;
+  color: #a7a7a7;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 133.333% */
+  letter-spacing: -0.3px;
 `;
 
 // 부원 등록 폼 레이아웃
@@ -139,7 +151,7 @@ const NameContainer = styled.div`
 
 // 회비 납부 여부와 OX 버튼을 묶는 컨테이너
 const PaymentContainer = styled.div`
-    display: flex;
+  display: flex;
   align-items: center;
   gap: 10px; /* O와 X 사이 간격 조정 */
 `;
@@ -230,13 +242,13 @@ const MemberListTitle = styled.h2`
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
-  background-color: #F6F6F6;
+  background-color: #f6f6f6;
   padding: 12px 20px;
   border-radius: 30px; /* 둥근 모서리 */
   margin-bottom: 24px;
   width: 325px;
-height: 48px;
-flex-shrink: 0;
+  height: 48px;
+  flex-shrink: 0;
 `;
 
 // 검색 입력 필드 스타일
@@ -267,7 +279,7 @@ const SearchIcon = styled.img`
 const MemberList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 25px;
 `;
 
 // 개별 부원 항목 스타일
@@ -275,7 +287,7 @@ const MemberItem = styled.div`
   display: flex;
   align-items: center;
   background-color: #fff;
-  padding: 8px 16px;
+  padding: 8px 20px;
   border-radius: 12px;
   box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.25);
 `;
@@ -285,7 +297,11 @@ const MemberName = styled.span`
   font-size: 16px;
   color: #000;
   margin-right: 8px;
-  
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.22px;
 `;
 
 // 부원 납부 상태 스타일
@@ -295,4 +311,10 @@ const MemberStatus = styled.span`
   background-color: ${(props) => (props.paid ? "#eaffea" : "#ffeaea")};
   padding: 4px 8px;
   border-radius: 8px;
+  font-family: Pretendard;
+
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.13px;
 `;
