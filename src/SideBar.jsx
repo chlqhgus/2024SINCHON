@@ -37,7 +37,7 @@ const SideBar = () => {
   const handleEventSelect = (eventName, eventId) => {
     setSelectedEvent(eventName);
     setShow(false);
-    navigate(`/${eventId}`);
+    navigate(`/dashboard/${eventId}`);
   };
 
   return (
