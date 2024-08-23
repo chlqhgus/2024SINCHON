@@ -23,31 +23,10 @@ const BudgetPage = () => {
     setCategory("지출");
   };
 
-  const calculateRemainingBudget = (total, data) => {
-    let remainingBudget = total;
-
-    data.forEach((item) => {
-      if (item.expense) {
-        remainingBudget -= item.money;
-      } else {
-        remainingBudget += item.money;
-      }
-    });
-
-    return remainingBudget;
-  };
-
-  const formatCurrency = (amount) => {
-    return amount.toLocaleString();
-  };
-
-  const remainingBudget = calculateRemainingBudget(total, history);
-  const formattedBudget = formatCurrency(remainingBudget);
-
   useEffect(() => {
-    const fetchData = () => {
+    const fetchData = async () => {
       try {
-        let url = "fundi/dashboard/1";
+        let url = "fundi/moneylist/1";
 
         if (category === "수입") {
           url += "?expense=False";
@@ -55,10 +34,15 @@ const BudgetPage = () => {
           url += "?expense=True";
         }
 
-        const response = instance.get(url);
+        const response = await instance.get(url, {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDc3MjM3LCJpYXQiOjE3MjQ0NDEyMzcsImp0aSI6IjFlMGE1ZDU0MDFmZTRhYjM5YjVjNmVjNWZlMGIzN2RlIiwidXNlcl9pZCI6Mn0.9DGUzOXOzK786J1-qk4UaET4-0-V-TosOaPu3FRv8Zw",
+          },
+        });
         if (response.status === 200) {
-          setTotal(response.total);
-          setHistory(response.data);
+          setTotal(response.data.total);
+          setHistory(response.data.data);
         }
       } catch (error) {
         alert(error);
@@ -105,17 +89,17 @@ const BudgetPage = () => {
       <Content>
         <Total>
           <TotalText>남은 예산</TotalText>
-          <TotalNum>{formattedBudget} 원</TotalNum>
+          <TotalNum>{total.toLocaleString()} 원</TotalNum>
         </Total>
         {history.map((element) => (
           <History
             key={element.listid}
             date={element.date}
             detail={element.detail}
-            imageUrl={element.imageUrl}
+            imageUrl={element.imageUrl ? element.imageUrl : "/image.png"}
             expense={element.expense}
-            money={element.money.toLocaleString()}
-            remainMoney={element.remainMoney.toLocaleString()}
+            money={element.money}
+            remainMoney={element.total}
           />
         ))}
       </Content>

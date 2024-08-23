@@ -7,6 +7,7 @@ import styled from "styled-components";
 import BudgetRegisterPage from "./src/BudgetRegisterPage";
 import DashboardPage from "./src/DashboardPage";
 
+// eslint-disable-next-line react/prop-types
 const Layout = ({ children }) => {
   return (
     <Container>

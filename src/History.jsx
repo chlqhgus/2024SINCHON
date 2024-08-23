@@ -11,7 +11,7 @@ const History = ({ date, detail, imageUrl, expense, money, remainMoney }) => {
       <MoneyContainer>
         <Money $expense={expense}>{`${
           expense ? "-" : "+"
-        }${money.toLocaleString()} 원`}</Money>
+        } ${money.toLocaleString()} 원`}</Money>
         <RemainMoney>잔액 {remainMoney.toLocaleString()}원</RemainMoney>
       </MoneyContainer>
     </Container>

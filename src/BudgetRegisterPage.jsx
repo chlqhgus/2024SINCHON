@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { instance } from "./api/instance";
 
 const BudgetRegisterPage = () => {
   const [category, setCategory] = useState("수입");
@@ -10,6 +11,8 @@ const BudgetRegisterPage = () => {
   const [description, setDescription] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
+
+  console.log(id);
 
   const handleClickIn = () => {
     setCategory("수입");
@@ -27,7 +30,31 @@ const BudgetRegisterPage = () => {
     setDescription("");
   };
 
-  const handleSaveIn = () => {
+  const handleSaveIn = async () => {
+    try {
+      const response = await instance.post(
+        "/fundi/moneylistcreate/earn/1/",
+        {
+          list: description,
+          money: amount,
+          category: classification,
+          date: date,
+          receipte: null,
+        },
+        {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDc3MjM3LCJpYXQiOjE3MjQ0NDEyMzcsImp0aSI6IjFlMGE1ZDU0MDFmZTRhYjM5YjVjNmVjNWZlMGIzN2RlIiwidXNlcl9pZCI6Mn0.9DGUzOXOzK786J1-qk4UaET4-0-V-TosOaPu3FRv8Zw",
+          },
+        }
+      );
+      if (response.status === 201) {
+        console.log("이동");
+        navigate("/budget/1");
+      }
+    } catch (error) {
+      alert(error);
+    }
     console.log("저장");
     console.log("날짜:", date);
     console.log("분류:", classification);
