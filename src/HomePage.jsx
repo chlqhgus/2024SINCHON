@@ -1,18 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+//import { instance } from "./api/instance";
 
 const LoginPage = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // 로그인 로직 추가
-    if (id === "test" && password === "password") {
-      navigate("/dashboard");
-    } else {
-      alert("ID, 비밀번호를 잘못 입력했거나 등록되지 않은 ID입니다. 확인 후 다시 입력해주세요!");
+  const handleLogin = async () => {
+    try {
+      // const response = await instance.post("api/login", {
+      //   username: id,
+      //   password: password,
+      // });
+
+      navigate("/dashboard/1");
+    } catch {
+      alert(
+        "ID, 비밀번호를 잘못 입력했거나 등록되지 않은 ID입니다. 확인 후 다시 입력해주세요!"
+      );
     }
   };
 
