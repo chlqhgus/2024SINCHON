@@ -65,7 +65,22 @@ const DashboardPage = () => {
     <MainContainer>
       <Header>
         <Subtitle>멋쟁이사자처럼</Subtitle>
-        <MainTitle>2024 신촌해커톤의 예산 내역이에요.</MainTitle>
+        <MainTitle>
+          <span
+            style={{
+              color: "#344BFD",
+              fontFamily: "Pretendard",
+              fontSize: "35px",
+              fontStyle: "normal",
+              fontWeight: 700,
+              lineHeight: "normal",
+              letterSpacing: "-0.7px",
+            }}
+          >
+            2024 신촌해커톤
+          </span>
+          의 예산 내역이에요.
+        </MainTitle>
         <Description>
           2024 신촌해커톤의 원활한 진행을 위해 배정된 예산입니다. <br />
           주요 항목으로는 참가자 지원, 홍보 활동, 행사 운영비 등이 있으며, 각
@@ -164,6 +179,7 @@ const DashboardPage = () => {
 };
 
 const MainContainer = styled.div`
+  margin-left: 3%;
   padding: 40px;
 `;
 
@@ -172,25 +188,38 @@ const Header = styled.div`
 `;
 
 const Subtitle = styled.h4`
-  font-family: Pretendard, sans-serif;
-  font-size: 18px;
-  color: #767676;
+  padding-top: 70px;
+  color: #000;
+
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
   font-weight: 400;
+  line-height: normal;
+  letter-spacing: -0.4px;
 `;
 
 const MainTitle = styled.h1`
-  font-family: Pretendard, sans-serif;
-  font-size: 36px;
-  color: #4f77ff;
-  font-weight: 700;
-  margin: 10px 0;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.52px;
+  padding: 10px 0px;
 `;
 
 const Description = styled.p`
-  font-family: Pretendard, sans-serif;
-  font-size: 14px;
-  color: #767676;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  color: #a7a7a7;
+  font-family: Pretendard;
+  font-size: 15px;
+  font-style: normal;
   font-weight: 400;
+  line-height: 20px; /* 133.333% */
+  letter-spacing: -0.3px;
 `;
 
 const ContentContainer = styled.div`
@@ -209,7 +238,7 @@ const BudgetSection = styled.div`
 
 const BudgetHeader = styled.h2`
   font-family: Pretendard, sans-serif;
-  font-size: 24px;
+  font-size: 15px;
   color: #000;
   font-weight: 700;
   margin-bottom: 10px;

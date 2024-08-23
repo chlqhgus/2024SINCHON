@@ -88,7 +88,7 @@ const BudgetPage = () => {
       </Header>
       <Content>
         <Total>
-          <TotalText>남은 예산</TotalText>
+          <TotalText>잔여 예산</TotalText>
           <TotalNum>{total.toLocaleString()} 원</TotalNum>
         </Total>
         {history.map((element) => (
@@ -121,14 +121,19 @@ const Container = styled.div`
 `;
 
 const HeaderText = styled.span`
-  font-size: 40px;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 30px;
+  font-style: normal;
   font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.8px;
 `;
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 5px;
 `;
 
 const Category = styled.div`
@@ -145,11 +150,18 @@ const CategoryContainer = styled.div`
   justify-content: center;
   align-items: center;
   width: 100px;
+  height: 50px;
+  flex-shrink: 0;
   background-color: ${(props) => (props.$isActive ? "#0565FF" : "#ffffff")};
 `;
 
 const CategoryName = styled.span`
+  font-family: Pretendard;
   font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.36px;
   color: ${(props) => (props.$isActive ? "#ffffff" : "#000000")};
 `;
 
@@ -162,6 +174,13 @@ const Plus = styled.button`
   background-color: #0565ff;
   border: none;
   cursor: pointer;
+  color: #fff;
+  font-family: Pretendard;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  letter-spacing: -0.18px;
 `;
 
 const Content = styled.div`
@@ -176,15 +195,28 @@ const Total = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding-bottom: 50px;
+  padding-bottom: 40px;
 `;
 
 const TotalText = styled.h1`
-  font-size: 17px;
   font-weight: 700;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 17px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.8px;
 `;
 
 const TotalNum = styled.p`
   font-size: 40px;
   font-weight: 700;
+  color: #000;
+  font-family: Pretendard;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  letter-spacing: -0.8px;
 `;
