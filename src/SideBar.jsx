@@ -37,7 +37,7 @@ const SideBar = () => {
   const handleEventSelect = (eventName, eventId) => {
     setSelectedEvent(eventName);
     setShow(false);
-    navigate(`/${eventId}`);
+    navigate(`/dashboard/${eventId}`);
   };
 
   return (
@@ -174,7 +174,7 @@ const UnivText = styled.span`
 const Description = styled.p`
   color: #767676;
   font-family: Pretendard;
-  font-size: 8px;
+  font-size: 10px;
   font-style: normal;
   font-weight: 600;
   line-height: normal;
