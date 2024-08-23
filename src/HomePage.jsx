@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const HomePage = () => {
   return (
-    <Container>
+    <MainContainer>
       <Header>
         <BlueBar />
         <Title>남은 예산</Title>
@@ -27,11 +27,11 @@ const HomePage = () => {
           <DetailAmount>500,000 원</DetailAmount>
         </DetailItem>
       </Details>
-    </Container>
+    </MainContainer>
   );
 };
 
-const Container = styled.div`
+const MainContainer = styled.div`
   width: 703px;
   height: 389px;
   flex-shrink: 0;
@@ -109,7 +109,8 @@ const Divider = styled.hr`
 
 export default HomePage;
 
-const Container = styled.div`
+// 여기서부터는 새로운 레이아웃 섹션
+const LayoutContainer = styled.div`
   display: flex;
 `;
 

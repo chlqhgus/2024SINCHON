@@ -1,14 +1,10 @@
+import React from 'react';
+import Router from './Router';
 
 function App() {
-<<<<<<< Updated upstream
   return (
-    <>
-      <Router />
-    </>
+    <Router />
   );
-=======
-  return <></>;
->>>>>>> Stashed changes
 }
 
 export default App;
