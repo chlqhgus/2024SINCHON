@@ -18,39 +18,9 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <HomePage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/:id"
-          element={
-            <Layout>
-              <HomePage />
-            </Layout>
-          }
-        />
-
-        <Route
-          path="/member/:id"
-          element={
-            <Layout>
-              <MemberPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/budget/:id"
-          element={
-            <Layout>
-              <BudgetPage />
-            </Layout>
-          }
-        />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/member" element={<MemberPage />} />
+        <Route path="/budget" element={<BudgetPage />} />
       </Routes>
     </BrowserRouter>
   );
