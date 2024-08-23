@@ -1,16 +1,49 @@
 import styled from "styled-components";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { useEffect, useState } from "react";
+import { instance } from "./api/instance";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DashboardPage = () => {
+  const [recentData, setRecentData] = useState([]);
+  const [moneyData, setMoneyData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await instance.get("fundi/dashboard/1", {
+          headers: {
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzI0NDc3MjM3LCJpYXQiOjE3MjQ0NDEyMzcsImp0aSI6IjFlMGE1ZDU0MDFmZTRhYjM5YjVjNmVjNWZlMGIzN2RlIiwidXNlcl9pZCI6Mn0.9DGUzOXOzK786J1-qk4UaET4-0-V-TosOaPu3FRv8Zw",
+          },
+        });
+        if (response.status === 201) {
+          console.log(response.data);
+          setRecentData(response.data.data.top_moneylists);
+          setMoneyData(response.data.moneydata);
+          setCategoryData(response.data.categorydata);
+        }
+      } catch (error) {
+        alert(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  console.log(categoryData);
+
   const data = {
-    labels: ["활동지원금", "홍보비", "간식비"],
+    labels: ["활동지원금", "간식비", "홍보비"],
     datasets: [
       {
-        data: [60, 20, 20], // 각각의 비율
-        backgroundColor: ["#344BFD", "#F4A79D", "#F68D2B"],
+        data: [
+          categoryData?.subsidy_percentage,
+          categoryData?.snack_percentage,
+          categoryData?.promotion_percentage,
+        ], // 각각의 비율
+        backgroundColor: ["#F4A79D", "#344BFD", "#F68D2B"],
       },
     ],
   };
@@ -27,6 +60,7 @@ const DashboardPage = () => {
     },
   };
 
+  const progressBar = (moneyData?.totalexpense / moneyData?.total) * 100;
   return (
     <MainContainer>
       <Header>
@@ -42,15 +76,19 @@ const DashboardPage = () => {
         <BudgetSection>
           <BudgetHeader>잔여 예산</BudgetHeader>
           <BudgetAmount>
-            1,243,800 <span>원</span>
+            {moneyData?.total?.toLocaleString()} <span>원</span>
           </BudgetAmount>
           <ProgressBarContainer>
             <ProgressBar>
-              <Progress style={{ width: "40%" }} />
+              <Progress style={{ width: `${progressBar}%` }} />
             </ProgressBar>
             <ProgressTextContainer>
-              <ProgressText>지출 256,200 원</ProgressText>
-              <ProgressText>수입 1,500,000 원</ProgressText>
+              <ProgressText>
+                지출 {moneyData?.totalexpense?.toLocaleString()} 원
+              </ProgressText>
+              <ProgressText>
+                수입 {moneyData?.totalearn?.toLocaleString()} 원
+              </ProgressText>
             </ProgressTextContainer>
           </ProgressBarContainer>
           <Midline src="/midline.svg" alt="midline" />
@@ -60,19 +98,28 @@ const DashboardPage = () => {
           </RecentExpensesHeader>
           <DetailContainer>
             <DetailItem>
-              <DetailLabel>동아리 홍보 포스터 제작</DetailLabel>
+              <DetailLabel>{recentData[0]?.list}</DetailLabel>
               <DetailLine src="/line.svg" alt="line" />
-              <DetailAmount>-140,000 원</DetailAmount>
+              <DetailAmount>
+                {recentData[0]?.expense ? "-" : ""}
+                {recentData[0]?.money.toLocaleString()} 원
+              </DetailAmount>
             </DetailItem>
             <DetailItem>
-              <DetailLabel>정기 모임 간식비</DetailLabel>
+              <DetailLabel>{recentData[1]?.list}</DetailLabel>
               <DetailLine src="/line.svg" alt="line" />
-              <DetailAmount>-42,300 원</DetailAmount>
+              <DetailAmount>
+                {recentData[1]?.expense ? "-" : ""}
+                {recentData[1]?.money.toLocaleString()} 원
+              </DetailAmount>
             </DetailItem>
             <DetailItem>
-              <DetailLabel>동아리 입회비</DetailLabel>
+              <DetailLabel>{recentData[2]?.list}</DetailLabel>
               <DetailLine src="/line.svg" alt="line" />
-              <DetailAmount>500,000 원</DetailAmount>
+              <DetailAmount>
+                {recentData[2]?.expense ? "-" : ""}
+                {recentData[2]?.money.toLocaleString()} 원
+              </DetailAmount>
             </DetailItem>
           </DetailContainer>
         </BudgetSection>
@@ -80,41 +127,34 @@ const DashboardPage = () => {
           <ChartTitle>사용처 TOP3</ChartTitle>
           <ChartContainer>
             <Doughnut data={data} options={options} />
-            <ChartTextContainer>
-              {data.datasets[0].data.map((percentage, index) => (
-                <PercentageCircle
-                  key={index}
-                  style={{
-                    top: `${index * 30 + 10}%`,
-                    left: index === 0 ? "60%" : "20%",
-                  }}
-                >
-                  <PercentageText>{`${percentage}%`}</PercentageText>
-                </PercentageCircle>
-              ))}
-            </ChartTextContainer>
           </ChartContainer>
           <LegendContainer>
             <LegendItem>
               <LegendColorTextWrapper>
-                <LegendColor color="#4F77FF" />
+                <LegendColor color="#F4A79D" />
                 <LegendText>활동지원금</LegendText>
               </LegendColorTextWrapper>
-              <LegendPercentage>60%</LegendPercentage>
+              <LegendPercentage>
+                {categoryData?.subsidy_percentage}%
+              </LegendPercentage>
             </LegendItem>
             <LegendItem>
               <LegendColorTextWrapper>
-                <LegendColor color="#FFA5A5" />
+                <LegendColor color="#344BFD" />
                 <LegendText>홍보비</LegendText>
               </LegendColorTextWrapper>
-              <LegendPercentage>20%</LegendPercentage>
+              <LegendPercentage>
+                {categoryData?.snack_percentage}%
+              </LegendPercentage>
             </LegendItem>
             <LegendItem>
               <LegendColorTextWrapper>
                 <LegendColor color="#FFBE3C" />
                 <LegendText>간식비</LegendText>
               </LegendColorTextWrapper>
-              <LegendPercentage>20%</LegendPercentage>
+              <LegendPercentage>
+                {categoryData?.promotion_percentage}%
+              </LegendPercentage>
             </LegendItem>
           </LegendContainer>
         </ChartSection>
@@ -156,10 +196,11 @@ const Description = styled.p`
 const ContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 `;
 
 const BudgetSection = styled.div`
-  width: 60%;
+  width: 700px;
   padding: 30px;
   border-radius: 20px;
   background-color: #fff;
@@ -299,36 +340,6 @@ const ChartContainer = styled.div`
   width: 150px;
   height: 150px;
   margin: 0 auto 20px;
-`;
-
-const ChartTextContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const PercentageCircle = styled.div`
-  position: absolute;
-  width: 31.495px;
-  height: 31.495px;
-  background-color: #eceaf8;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
-`;
-
-const PercentageText = styled.div`
-  color: #000;
-  font-family: Inter, sans-serif;
-  font-size: 10px;
-  font-weight: 700;
 `;
 
 const LegendContainer = styled.div`
