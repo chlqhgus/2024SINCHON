@@ -95,7 +95,7 @@ const BudgetPage = () => {
           <History
             key={element.listid}
             date={element.date}
-            detail={element.detail}
+            detail={element.list}
             imageUrl={element.imageUrl ? element.imageUrl : "/image.png"}
             expense={element.expense}
             money={element.money}
