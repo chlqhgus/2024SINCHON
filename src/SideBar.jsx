@@ -67,6 +67,7 @@ const SideBar = () => {
       </div>
 
       <Content>
+
         <Category
           onClick={() => navigate(`/dashboard/${id}`)}
           style={{ backgroundColor: getBackgroundColor("/dashboard") }}

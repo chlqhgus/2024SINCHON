@@ -4,6 +4,8 @@ import MemberPage from "./src/MemberPage";
 import BudgetPage from "./src/BudgetPage";
 import SideBar from "./src/SideBar";
 import styled from "styled-components";
+import BudgetRegisterPage from "./src/BudgetRegisterPage";
+import DashboardPage from "./src/DashboardPage";
 
 const Layout = ({ children }) => {
   return (
@@ -30,7 +32,7 @@ function Router() {
           path="/dashboard/:id"
           element={
             <Layout>
-              <HomePage />
+              <DashboardPage />
             </Layout>
           }
         />
@@ -48,6 +50,14 @@ function Router() {
           element={
             <Layout>
               <BudgetPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/budgetRegister/:id"
+          element={
+            <Layout>
+              <BudgetRegisterPage />
             </Layout>
           }
         />
