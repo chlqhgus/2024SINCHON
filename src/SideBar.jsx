@@ -85,8 +85,7 @@ export default SideBar;
 const Sidebar = styled.div`
   width: 350px;
   height: 100vh;
-  padding-top: 72px;
-  padding-left: 50px;
+  padding: 72px 30px 0 30px;
   align-items: flex-start;
   display: flex;
   flex-direction: column;
