@@ -1,82 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import History from "./History";
 import { useNavigate, useParams } from "react-router-dom";
-
-const totalBudget = 20000; // 총 예산
-const data = [
-  {
-    listid: 1,
-    list: "간식",
-    money: 4000,
-    category: "간식비",
-    expense: true,
-    receipt: null,
-    eventid: 1,
-    date: "2024-08-23",
-  },
-  {
-    listid: 2,
-    list: "지원금",
-    money: 5000,
-    category: "지원금",
-    expense: false,
-    receipt: null,
-    eventid: 1,
-    date: "2024-08-24",
-  },
-];
-
-const historyData = [
-  {
-    listid: 1,
-    date: "2024-08-25",
-    detail: "동아리 홍보 포스터 제작",
-    imageUrl: "/bg.png",
-    expense: true,
-    money: 140000,
-    remainMoney: 1243800,
-  },
-  {
-    listid: 2,
-    date: "2024-08-20",
-    detail: "정기모임 간식비",
-    imageUrl: "/bg.png",
-    expense: true,
-    money: 42300,
-    remainMoney: 1383800,
-  },
-  {
-    listid: 3,
-    date: "2024-04-03",
-    detail: "동아리 입회비",
-    imageUrl: "/bg.png",
-    expense: false,
-    money: 500000,
-    remainMoney: 1426100,
-  },
-  {
-    listid: 4,
-    date: "2024-04-03",
-    detail: "동아리 입회비",
-    imageUrl: "/bg.png",
-    expense: false,
-    money: 500000,
-    remainMoney: 1426100,
-  },
-  {
-    listid: 5,
-    date: "2024-04-03",
-    detail: "동아리 입회비",
-    imageUrl: "/bg.png",
-    expense: false,
-    money: 500000,
-    remainMoney: 1426100,
-  },
-];
+import { instance } from "./api/instance";
 
 const BudgetPage = () => {
   const [category, setCategory] = useState("전체");
+  const [history, setHistory] = useState([]);
+  const [total, setTotal] = useState(0);
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -110,8 +41,32 @@ const BudgetPage = () => {
     return amount.toLocaleString();
   };
 
-  const remainingBudget = calculateRemainingBudget(totalBudget, data);
+  const remainingBudget = calculateRemainingBudget(total, history);
   const formattedBudget = formatCurrency(remainingBudget);
+
+  useEffect(() => {
+    const fetchData = () => {
+      try {
+        let url = "fundi/dashboard/1";
+
+        if (category === "수입") {
+          url += "?expense=False";
+        } else if (category === "지출") {
+          url += "?expense=True";
+        }
+
+        const response = instance.get(url);
+        if (response.status === 200) {
+          setTotal(response.total);
+          setHistory(response.data);
+        }
+      } catch (error) {
+        alert(error);
+      }
+    };
+
+    fetchData();
+  }, [category]);
 
   return (
     <Container>
@@ -152,7 +107,7 @@ const BudgetPage = () => {
           <TotalText>남은 예산</TotalText>
           <TotalNum>{formattedBudget} 원</TotalNum>
         </Total>
-        {historyData.map((element) => (
+        {history.map((element) => (
           <History
             key={element.listid}
             date={element.date}
