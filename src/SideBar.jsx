@@ -59,7 +59,7 @@ const SideBar = () => {
       </div>
 
       <Content>
-        <Category onClick={() => navigate(`/${id}`)}>
+        <Category onClick={() => navigate(`/dashboard/${id}`)}>
           <ContentImage src="/graph.svg" alt="대시보드" />
           <CategoryName style={{ color: getColor("/") }}>대시보드</CategoryName>
         </Category>

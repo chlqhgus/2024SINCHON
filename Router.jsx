@@ -4,6 +4,8 @@ import MemberPage from "./src/MemberPage";
 import BudgetPage from "./src/BudgetPage";
 import SideBar from "./src/SideBar";
 import styled from "styled-components";
+import BudgetRegisterPage from "./src/BudgetRegisterPage";
+import DashboardPage from "./src/DashboardPage";
 
 const Layout = ({ children }) => {
   return (
@@ -18,9 +20,47 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/member" element={<MemberPage />} />
-        <Route path="/budget" element={<BudgetPage />} />
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <HomePage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/dashboard/:id"
+          element={
+            <Layout>
+              <DashboardPage />
+            </Layout>
+          }
+        />
+
+        <Route
+          path="/member/:id"
+          element={
+            <Layout>
+              <MemberPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/budget/:id"
+          element={
+            <Layout>
+              <BudgetPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/budgetRegister/:id"
+          element={
+            <Layout>
+              <BudgetRegisterPage />
+            </Layout>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
