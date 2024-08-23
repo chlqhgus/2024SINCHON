@@ -5,13 +5,13 @@ const MemberPage = () => {
   const [name, setName] = useState("");
   const [isPaid, setIsPaid] = useState(false);
   const [members, setMembers] = useState([
-    { name: "김하나", paid: true },
-    { name: "김하나", paid: true },
-    { name: "박진호", paid: false },
-    { name: "김하나", paid: true },
-    { name: "김하나", paid: true },
-    { name: "김하나", paid: true },
-    { name: "김하나", paid: true },
+    { name: "안연아", paid: true },
+    { name: "최보현", paid: true },
+    { name: "박솔", paid: false },
+    { name: "박민서", paid: true },
+    { name: "이정은", paid: true },
+    { name: "변희민", paid: true },
+    { name: "신촌톤", paid: false },
   ]);
 
   const handleRegister = () => {
