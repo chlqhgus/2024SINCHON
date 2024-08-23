@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+// eslint-disable-next-line react/prop-types
 const History = ({ date, detail, imageUrl, expense, money, remainMoney }) => {
   return (
     <Container>
