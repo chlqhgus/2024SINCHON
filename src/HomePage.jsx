@@ -1,4 +1,4 @@
-import React from 'react';
+
 import styled from 'styled-components';
 
 const HomePage = () => {
@@ -108,53 +108,3 @@ const Divider = styled.hr`
 `;
 
 export default HomePage;
-
-// 여기서부터는 새로운 레이아웃 섹션
-const LayoutContainer = styled.div`
-  display: flex;
-`;
-
-const Sidebar = styled.div`
-  width: 285px;
-  height: 100vh;
-  background-color: yellow;
-`;
-
-const Logo = styled.span`
-  font-size: 25px;
-  color: #0565ff;
-  font-weight: 700;
-`;
-
-const Card = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 245px;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: red;
-`;
-
-const Image = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-`;
-
-const Text = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
-
-const UnivText = styled.span`
-  font-size: 16px;
-  font-weight: 600;
-`;
-
-const Description = styled.p`
-  font-size: 14px;
-`;
-
-const ArrowImg = styled.img``;
