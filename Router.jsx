@@ -27,7 +27,7 @@ function Router() {
           }
         />
         <Route
-          path="/:id"
+          path="/dashboard/:id"
           element={
             <Layout>
               <HomePage />
